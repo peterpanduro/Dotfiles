@@ -13,8 +13,8 @@ map("n", "<leader>bn", ":bn<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bp", ":bp<cr>", { desc = "Previous Buffer" })
 
 -- window management
-map("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
-map("n", "<leader>wh", "<C-w>s", { desc = "Split window horizontally" })
+map("n", "<leader>wh", "<C-w>v", { desc = "Split window vertically" })
+map("n", "<leader>wv", "<C-w>s", { desc = "Split window horizontally" })
 map("n", "<leader>we", "<C-w>=", { desc = "Make split windows equal size" })
 map("n", "<leader>wq", ":close<CR>", { silent = true, desc = "Close current window" })
 
