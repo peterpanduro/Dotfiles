@@ -72,6 +72,8 @@ yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
 yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
 yabai -m rule --add label="Software Update" title="Software Update" manage=off
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+yabai -m rule --add label="Riot Client" app="Riot Client" title="Riot Client" manage=off
+yabai -m rule --add label="League of Legends" app="League of Legends" title="League of Legends" manage=off
 
 # ===== Signals ================================
 
