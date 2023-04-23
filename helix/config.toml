@@ -15,12 +15,8 @@ select = "underline"
 [editor.file-picker]
 hidden = true
 
-#[[language]]
-#name = "rust"
+[editor.soft-wrap]
+enable = true
 
-#[language.language-server]
-#command = "rustup"
-#args = ["run", "stable", "rust-analyzer"]
-
-#[language.config.check]
-#command = "clippy"
+[editor.lsp]
+display-inlay-hints = true
