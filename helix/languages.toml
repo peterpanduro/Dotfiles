@@ -7,3 +7,15 @@ args = ["run", "stable", "rust-analyzer"]
 
 [language.config.check]
 command = "clippy"
+
+[[language]]
+name = "go"
+
+[language.language-server]
+command = "gopls"
+args = []
+
+[[grammar]]
+name = "go"
+scope = "source.go"
+source.git = "https://github.com/tree-sitter/tree-sitter-go.git"
