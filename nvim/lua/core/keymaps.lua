@@ -8,11 +8,16 @@ map("n", "<esc>", ":noh<cr>", { silent = true })
 -- delete single character without copying into register
 map("n", "x", '"_x')
 
+-- Yank to system clipboard
+map("n", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+map("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+
+-- Buffers
 map("n", "<leader>bd", ":bd<cr>", { desc = "Deload buffer" })
 map("n", "<leader>bn", ":bn<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bp", ":bp<cr>", { desc = "Previous Buffer" })
 
--- window management
+-- Window management
 map("n", "<leader>wh", "<C-w>v", { desc = "Split window vertically" })
 map("n", "<leader>wv", "<C-w>s", { desc = "Split window horizontally" })
 map("n", "<leader>we", "<C-w>=", { desc = "Make split windows equal size" })
