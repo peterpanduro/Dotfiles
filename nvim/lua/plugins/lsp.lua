@@ -12,7 +12,7 @@ return {
         { 'hrsh7th/cmp-nvim-lsp' }, -- Required
         { 'L3MON4D3/LuaSnip' },     -- Required
     },
-    ft = { "lua", "rust", "go" },
+    ft = { "lua", "rust", "go", "javascript", "typescript" },
     cmd = { "Mason" },
     keys = {
         { "<leader>cm", ":Mason<cr>", desc = "Mason" },
@@ -32,13 +32,15 @@ return {
         lsp.ensure_installed({
             'lua_ls',
             'rust_analyzer',
-            'gopls'
+            'gopls',
+            'tsserver'
         })
         lsp.format_on_save({
             servers = {
                 ['lua_ls'] = { 'lua' },
                 ['rust_analyzer'] = { 'rust' },
-                ['gopls'] = { 'go' }
+                ['gopls'] = { 'go' },
+                ['tsserver'] = { 'typescript', 'javascript' }
             }
         })
 
