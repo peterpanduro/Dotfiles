@@ -8,6 +8,6 @@ return {
         { "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", desc = "Navigate right" },
     },
     config = function()
-        require 'nvim-tmux-navigation'.setup()
+        require("nvim-tmux-navigation").setup {}
     end
 }
