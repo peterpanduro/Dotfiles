@@ -13,8 +13,8 @@ set_alias() {
 }
 set_alias vim nvim
 set_alias cat bat
-set_alias ls exa
-set_alias la exa -la
+set_alias ls eza
+set_alias la eza -la
 set_alias grep rg
 set_alias lg lazygit
 
