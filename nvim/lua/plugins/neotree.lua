@@ -7,7 +7,7 @@ return {
         { "nvim-tree/nvim-web-devicons", name = "neotree-web-devicons" }, -- Optional
     },
     keys = {
-        { "<leader>nt", "<cmd>Neotree toggle<cr>", desc = "Neotree" },
+        { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "Neotree: File [T]ree" },
     },
     config = function()
         require("neo-tree").setup({

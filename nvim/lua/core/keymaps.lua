@@ -4,6 +4,7 @@ local map = vim.keymap.set
 
 map("n", "<leader>pv", vim.cmd.Ex, { desc = "Netrw" })
 map("n", "<esc>", ":noh<cr>", { silent = true })
+map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- delete single character without copying into register
 map("n", "x", '"_x')
@@ -36,3 +37,9 @@ map("v", "<A-down>", ":m '>+1<CR>gv=gv")
 map("v", "<A-up>", ":m '<-2<CR>gv=gv")
 map("i", "<A-down>", "<Esc>:m+<CR>==gi")
 map("i", "<A-up>", "<Esc>:m-2<CR>==gi")
+
+-- Diagnostics
+map('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+map('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+map('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
