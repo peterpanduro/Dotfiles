@@ -7,11 +7,6 @@ return {
     },
     event = { "BufReadPre", "BufNewFile" },
     cmd = { "LspInfo", "LspStart", "LspStop", "LspRestart" },
-    keys = {
-        { "<leader>cr", vim.lsp.buf.rename,                                                    desc = "Rename" },
-        { '<space>cf',  function() vim.lsp.buf.format { async = true, timeout_ms = 1000 } end, desc = "Format" },
-        { "<space>ca",  vim.lsp.buf.code_action,                                               desc = "Code Actions" },
-    },
     config = function()
         local on_attach = function(_, bufnr)
             local nmap = function(keys, func, desc)
@@ -22,6 +17,7 @@ return {
                 vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
             end
 
+            nmap('<space>cf', vim.lsp.buf.format, 'Format')
             nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
             nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
             nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
@@ -30,12 +26,8 @@ return {
             nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
             nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
             nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-            -- See `:help K` for why this keymap
             nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
             nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-            -- Lesser used LSP functionality
             nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
             nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
             nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -49,14 +41,6 @@ return {
             end, { desc = 'Format current buffer with LSP' })
         end
 
-        -- Enable the following language servers
-        --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-        --
-        --  Add any additional override configuration in the following tables. They will be passed to
-        --  the `settings` field of the server config. You must look up that documentation yourself.
-        --
-        --  If you want to override the default filetypes that your language server will attach to you can
-        --  define the property 'filetypes' to the map in question.
         local servers = {
             clangd = {},
             gopls = {},
