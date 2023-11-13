@@ -3,8 +3,8 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
         { "<leader>hr", "<Plug>RestNvim", desc = "[H]ttp [R]un" },
-        { "<leader>hp", "<Plug>RestNvimPreview", desc = "[H]ttp [P]review" },
-        -- { "<leader>hl", "<Plug>RestNvimLast", desc = "[H]ttp [L]ast" },
+        -- { "<leader>hp", "<Plug>RestNvimPreview", desc = "[H]ttp [P]review" },
+        -- { "<leadr>hl", "<Plug>RestNvimLast", desc = "[H]ttp [L]ast" },
   },
   config = function()
     require("rest-nvim").setup({
