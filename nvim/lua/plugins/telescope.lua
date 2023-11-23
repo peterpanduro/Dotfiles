@@ -12,7 +12,7 @@ return {
   },
   cmd = "Telescope",
   keys = {
-    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file" },
+    { "<leader>ff", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", desc = "Find file" },
     { "<leader>fb", "<cmd>Telescope buffers<cr>",    desc = "Find buffer" },
     { "<leader>fg", "<cmd>Telescope live_grep<cr>",  desc = "Find grep" },
     { "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Find help" },
