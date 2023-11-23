@@ -17,7 +17,7 @@ local plugins = "plugins"
 
 local opts = {
 	defaults = {
-		lazy = true,
+		-- lazy = true,
 	},
 	rtp = {
 		disabled_plugins = {

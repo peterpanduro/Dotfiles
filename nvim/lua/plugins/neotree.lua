@@ -7,6 +7,7 @@ return {
         { "nvim-tree/nvim-web-devicons" }, -- Optional
         "3rd/image.nvim",
     },
+    cmd = "Neotree",
     keys = {
         { "<leader>ft", "<cmd>Neotree toggle<cr>",           desc = "[F]ile [T]ree" },
         { "<leader>fn", "<cmd>Neotree position=current<cr>", desc = "[F]iletree [N]avigate" },
