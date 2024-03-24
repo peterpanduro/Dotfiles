@@ -39,6 +39,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'vscode-node-debug2'
       },
     }
 
@@ -80,6 +81,36 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    dap.adapters.node2 = {
+      type = 'executable',
+      command = 'node',
+      args = { os.getenv('HOME') .. '/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js' },
+    }
+    dap.configurations.typescript = {
+      {
+        type = 'node2',
+        request = 'launch',
+        name = 'Launch file',
+        program = '${file}',
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal',
+      },
+    }
+    dap.configurations.svelte = {
+      {
+        type = 'node2',
+        request = 'launch',
+        name = 'Debug Svelte App',
+        program = '${workspaceFolder}/path/to/compiled/js/file.js',
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal',
+      },
+    }
 
     -- Install golang specific config
     require('dap-go').setup()
