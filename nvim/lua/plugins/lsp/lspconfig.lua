@@ -1,10 +1,36 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
+        -- "gleam-lang/gleam.vim",
+        "maurobalbi/glas",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         { 'j-hui/fidget.nvim', opts = {} }, -- Useful status updates for LSP
         'folke/neodev.nvim',                -- Additional lua configuration, makes nvim stuff amazing!
+        'simrat39/rust-tools.nvim',
+        'apple/sourcekit-lsp',
+        {
+            "nvimtools/none-ls.nvim",
+            opts = function(_, opts)
+                local nls = require("null-ls").builtins
+                opts.sources = vim.list_extend(opts.sources or {}, {
+                    nls.formatting.biome,
+                    nls.formatting.swiftformat,
+
+                    -- or if you like to live dangerously like me:
+                    -- nls.formatting.biome.with({
+                    --     args = {
+                    --         'check',
+                    --         '--apply-unsafe',
+                    --         '--formatter-enabled=true',
+                    --         '--organize-imports-enabled=true',
+                    --         '--skip-errors',
+                    --         '$FILENAME',
+                    --     },
+                    -- }),
+                })
+            end,
+        },
     },
     event = { "BufReadPre", "BufNewFile" },
     cmd = { "LspInfo", "LspStart", "LspStop", "LspRestart" },
@@ -48,7 +74,15 @@ return {
             gopls = {},
             pyright = {},
             rust_analyzer = {},
-            tsserver = {},
+            sourcekit = {},
+            tsserver = {
+                on_attach = function(client)
+                    -- this is important, otherwise tsserver will format ts/js
+                    -- files which we *really* don't want.
+                    client.server_capabilities.documentFormattingProvider = false
+                end,
+            },
+            biome = {},
             html = { filetypes = { 'html', 'twig', 'hbs' } },
             lua_ls = {
                 Lua = {
@@ -60,6 +94,24 @@ return {
 
         -- Setup neovim lua configuration
         require('neodev').setup()
+
+        -- Rust-tools
+        local rt = require("rust-tools")
+        rt.setup({
+            server = {
+                on_attach = function(_, bufnr)
+                    -- Hover actions
+                    vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+                    -- Code action groups
+                    vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+                end,
+            },
+            tools = {
+                inlay_hints = {
+                    auto = true,
+                },
+            }
+        })
 
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -81,5 +133,17 @@ return {
                 }
             end
         }
+
+        -- Gleam
+        require('lspconfig').gleam.setup({
+            -- cmd = { 'glas', '--stdio' },
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
+
+        -- Swift
+        require('lspconfig').sourcekit.setup({
+            on_attach = on_attach,
+        })
     end
 }
