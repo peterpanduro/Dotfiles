@@ -22,7 +22,7 @@ return {
     dashboard.section.buttons.val = {
       dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
       dashboard.button("t", "  > Open filetree explorer", "<cmd>Neotree position=current<CR>"),
-      dashboard.button("f", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
+      dashboard.button("f", "󰱼  > Find File", "<cmd>Telescope find_files hidden=true no_ignore=true<CR>"),
       dashboard.button("g", "  > Find Grep", "<cmd>Telescope live_grep<CR>"),
       dashboard.button("r", "󱋡  > Recent files", "<cmd>Telescope oldfiles<CR>"),
       -- dashboard.button("SPC wr", "󰁯  > Restore Session For Current Directory", "<cmd>SessionRestore<CR>"),
