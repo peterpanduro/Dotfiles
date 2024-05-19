@@ -17,6 +17,8 @@ set_alias ls eza
 set_alias la eza -la
 set_alias grep rg
 set_alias lg lazygit
+set_alias cps gh copilot suggest
+set_alias cpe gh copilot explain
 alias brewup="brew update && brew upgrade && brew cleanup && brew doctor"
 
 export NVM_DIR="$HOME/.nvm"
