@@ -3,7 +3,11 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = { "Oil" },
   keys = {
-    { '<leader>fo', '<CMD>Oil<CR>', { desc = "Open Oil" } },
+    { '<leader>-', '<CMD>Oil<CR>', { desc = "Open Oil" } },
   },
-  opts = {},
+  opts = {
+    view_options = {
+      show_hidden = true,
+    }
+  },
 }

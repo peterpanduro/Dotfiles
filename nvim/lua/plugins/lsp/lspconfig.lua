@@ -8,29 +8,6 @@ return {
         { 'j-hui/fidget.nvim', opts = {} }, -- Useful status updates for LSP
         'folke/neodev.nvim',                -- Additional lua configuration, makes nvim stuff amazing!
         'simrat39/rust-tools.nvim',
-        'apple/sourcekit-lsp',
-        {
-            "nvimtools/none-ls.nvim",
-            opts = function(_, opts)
-                local nls = require("null-ls").builtins
-                opts.sources = vim.list_extend(opts.sources or {}, {
-                    nls.formatting.biome,
-                    nls.formatting.swiftformat,
-
-                    -- or if you like to live dangerously like me:
-                    -- nls.formatting.biome.with({
-                    --     args = {
-                    --         'check',
-                    --         '--apply-unsafe',
-                    --         '--formatter-enabled=true',
-                    --         '--organize-imports-enabled=true',
-                    --         '--skip-errors',
-                    --         '$FILENAME',
-                    --     },
-                    -- }),
-                })
-            end,
-        },
     },
     event = { "BufReadPre", "BufNewFile" },
     cmd = { "LspInfo", "LspStart", "LspStop", "LspRestart" },
@@ -40,7 +17,6 @@ return {
                 if desc then
                     desc = 'LSP: ' .. desc
                 end
-
                 vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
             end
 
@@ -74,7 +50,6 @@ return {
             gopls = {},
             pyright = {},
             rust_analyzer = {},
-            sourcekit = {},
             tsserver = {
                 on_attach = function(client)
                     -- this is important, otherwise tsserver will format ts/js
@@ -82,8 +57,6 @@ return {
                     client.server_capabilities.documentFormattingProvider = false
                 end,
             },
-            biome = {},
-            html = { filetypes = { 'html', 'twig', 'hbs' } },
             lua_ls = {
                 Lua = {
                     workspace = { checkThirdParty = false },
@@ -139,11 +112,6 @@ return {
             -- cmd = { 'glas', '--stdio' },
             on_attach = on_attach,
             capabilities = capabilities,
-        })
-
-        -- Swift
-        require('lspconfig').sourcekit.setup({
-            on_attach = on_attach,
         })
     end
 }
