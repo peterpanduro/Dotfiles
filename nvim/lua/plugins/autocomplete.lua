@@ -56,7 +56,8 @@ return {
                 { name = 'buffer' },
                 { name = 'luasnip' },
                 { name = 'path' },
-                { name = 'friendly-snippets' }
+                { name = 'friendly-snippets' },
+                { name = 'supermaven' },
             }
         }
     end
