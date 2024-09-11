@@ -4,15 +4,16 @@ return {
   config = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
-    require("which-key").setup()
+    require("which-key").setup({
+      { "", group = "[D]ebug" },
+      { "", group = "[R]eame" },
+      { "", group = "[F]ind" },
+      { "", group = "[W]orkspace" },
+      { "", group = "[C]ode" },
+      { "", group = "[G]it" },
+      { "", desc = "",            hidden = true, mode = { "n", "n", "n", "n", "n", "n" } },
+    })
 
-    require('which-key').register {
-      ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-      ['<leader>d'] = { name = '[D]ebug', _ = 'which_key_ignore' },
-      ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-      ['<leader>r'] = { name = '[R]eame', _ = 'which_key_ignore' },
-      ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
-      ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-    }
+    -- require('which-key').register
   end
 }
