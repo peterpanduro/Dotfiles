@@ -42,3 +42,4 @@ opt.isfname:append("@-@")
 opt.undofile = true
 opt.cursorline = true     -- highlight the current cursor line
 opt.iskeyword:append("-") -- consider string-string as whole word
+opt.showmode = false
