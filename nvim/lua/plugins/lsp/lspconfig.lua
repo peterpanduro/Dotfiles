@@ -50,9 +50,9 @@ return {
             gopls = {},
             pyright = {},
             rust_analyzer = {},
-            tsserver = {
+            ts_ls = {
                 on_attach = function(client)
-                    -- this is important, otherwise tsserver will format ts/js
+                    -- this is important, otherwise ts_ls will format ts/js
                     -- files which we *really* don't want.
                     client.server_capabilities.documentFormattingProvider = false
                 end,
