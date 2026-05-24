@@ -1,5 +1,65 @@
 # ~/.zshrc
 
+flac2alac() {
+    local recursive=false
+    local dir="."
+
+    # Parse options
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -r|--recursive)
+                recursive=true
+                shift
+                ;;
+            *)
+                dir="$1"
+                shift
+                ;;
+        esac
+    done
+
+    if [[ ! -d "$dir" ]]; then
+        echo "Error: '$dir' is not a directory."
+        return 1
+    fi
+
+    convert_file() {
+        local f="$1"
+        local out="${f%.flac}.m4a"
+
+        echo "Converting: $f → $out"
+
+        # Convert audio + embed cover art if present
+        ffmpeg -i "$f" \
+            -map 0:a -c:a alac \
+            -map "0:v?" -c:v mjpeg \
+            -map_metadata 0 \
+            -metadata:s:v title="Cover (front)" \
+            -metadata:s:v comment="Cover (front)" \
+            "$out"
+    }
+
+    if $recursive; then
+        # Recursive mode with NUL-safe handling
+        find "$dir" -type f -iname "*.flac" -print0 | while IFS= read -r -d '' f; do
+            convert_file "$f"
+        done
+    else
+        # Non-recursive mode (zsh-safe nullglob)
+        setopt local_options null_glob
+        local files=("$dir"/*.flac)
+
+        if (( ${#files[@]} == 0 )); then
+            echo "No .flac files found in $dir"
+            return 1
+        fi
+
+        for f in "${files[@]}"; do
+            convert_file "$f"
+        done
+    fi
+}
+
 #Aliases
 set_alias() {
   cmd="$1"
@@ -26,6 +86,7 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH="$HOME/.local/bin:$PATH"
 
 source <(ng completion script) # Load Angular CLI autocompletion.
 
