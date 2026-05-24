@@ -1,16 +1,39 @@
--- rest.nvim was fully rewritten and now requires luarocks + tree-sitter-http,
--- which breaks plain lazy installs. Pin to the last pre-rewrite commit and use
--- the old API. Set enabled = false if you don't use HTTP files.
 return {
     "rest-nvim/rest.nvim",
-    enabled = false,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    commit = "91f86731d6c6ca28b3e6f7372eafd6a36abb71ac",
     ft = "http",
+    dependencies = { "j-hui/fidget.nvim" },
     keys = {
-        { "<leader>hr", "<Plug>RestNvim", desc = "[H]ttp [R]un" },
+        { "<leader>hr", "<cmd>Rest run<cr>",      desc = "[H]ttp [R]un request under cursor" },
+        { "<leader>hl", "<cmd>Rest run last<cr>", desc = "[H]ttp run [L]ast" },
+        { "<leader>hL", "<cmd>Rest logs<cr>",     desc = "[H]ttp [L]ogs" },
     },
     config = function()
-        require("rest-nvim").setup({})
+        require("rest-nvim").setup({
+            client = "curl",
+            env = { enable = true, pattern = ".*%.env.*" },
+            request = { skip_ssl_verification = false, hooks = { encode_url = true } },
+            response = { hooks = { decode_url = true, format = true } },
+            result = {
+                split = { horizontal = false, in_place = false },
+                behavior = {
+                    decode_url = true,
+                    show_info = {
+                        url = true,
+                        headers = true,
+                        http_info = true,
+                        curl_command = false,
+                    },
+                    formatters = {
+                        json = "jq",
+                    },
+                },
+                keybinds = {
+                    buffer_local = true,
+                    prev = "H",
+                    next = "L",
+                },
+            },
+            highlight = { enable = true, timeout = 750 },
+        })
     end,
 }

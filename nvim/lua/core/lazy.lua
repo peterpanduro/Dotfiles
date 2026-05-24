@@ -35,6 +35,10 @@ local opts = {
 	change_detection = {
 		notify = false,
 	},
+	rocks = {
+		enabled = true,
+		hererocks = false, -- use system luarocks (installed via brew)
+	},
 }
 
 require("lazy").setup(plugins, opts)
