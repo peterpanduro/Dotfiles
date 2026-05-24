@@ -4,7 +4,7 @@ return {
     dependencies = { "j-hui/fidget.nvim" },
     keys = {
         { "<leader>hr", "<cmd>Rest run<cr>",      desc = "[H]ttp [R]un request under cursor" },
-        { "<leader>hl", "<cmd>Rest run last<cr>", desc = "[H]ttp run [L]ast" },
+        { "<leader>hl", "<cmd>Rest last<cr>",     desc = "[H]ttp run [L]ast" },
         { "<leader>hL", "<cmd>Rest logs<cr>",     desc = "[H]ttp [L]ogs" },
     },
     config = function()
