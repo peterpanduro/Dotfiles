@@ -7,16 +7,19 @@ return {
         {
             "<leader>hl",
             function()
-                -- Workaround: rest.nvim's `Rest last` calls run_request synchronously
-                -- but curl's `.wait()` needs to be inside an nio task, so it fails.
-                -- Wrap the run_last call in nio.run ourselves.
+                -- Workaround: rest.nvim's `:Rest last` calls run_request
+                -- synchronously, but curl's nio future `.wait()` must run inside
+                -- an nio task. Without the wrapper, every `:Rest last` errors.
                 local request = require("rest-nvim.request")
+                local ui = require("rest-nvim.ui.result")
                 if not request.last_request() then
                     vim.notify("No last request found", vim.log.levels.WARN, { title = "rest.nvim" })
                     return
                 end
-                require("rest-nvim.ui.result").clear()
-                vim.cmd("Rest open")
+                if not ui.is_open() then
+                    vim.cmd("Rest open")
+                end
+                ui.clear()
                 require("nio").run(function() request.run_last() end)
             end,
             desc = "[H]ttp run [L]ast",
