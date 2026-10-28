@@ -72,14 +72,15 @@ set_alias() {
   fi
 }
 set_alias vim nvim
-set_alias cat bat
+set_alias cat bat -pp
 set_alias ls eza
 set_alias la eza -la
+set_alias ll eza -l
 set_alias grep rg
 set_alias lg lazygit
-set_alias cps gh copilot suggest
-set_alias cpe gh copilot explain
-alias brewup="brew update && brew upgrade && brew cleanup && brew doctor"
+set_alias g git
+set_alias rd riff
+alias brewup="brew update && brew upgrade -y && brew cleanup && brew doctor"
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
@@ -88,11 +89,8 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.local/bin:$PATH"
 
-source <(ng completion script) # Load Angular CLI autocompletion.
-
 # Fuzzy finding config
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# Init zoxide
-eval "$(zoxide init zsh)"
+command -v fzf >/dev/null && source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
